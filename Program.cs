@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using BurgerCF.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<BurgerCFContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BurgerCFContext") ?? throw new InvalidOperationException("Connection string 'BurgerCFContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
